@@ -1,0 +1,68 @@
+<Armorlab>
+    MDBoxLayout:
+        orientation: "vertical"
+
+        MDToolbar: 
+            title: "Armor Lab"
+            left_action_items: [["menu", lambda x: app.callback()]]
+            right_action_items: [["dots-vertical", lambda x: app.callback1()]]
+            md_bg_color: app.theme_cls.accent_color
+            spacing: 10
+
+        MDFloatLayout:
+            Label:
+                text: "Prithviraj"
+                pos_hint:{"center_x":0.2,"center_y":0.95}
+                size_hint: (0.8, 0.5)
+                line_height: 0
+                padding:(100, 100) 
+                font_size: "20sp" 
+            
+            Label:
+                text: "University of California San Diego"
+                pos_hint:{"center_x":0.4,"center_y":0.8}
+                size_hint: (0.8, 0.5)
+                line_height: 0
+                halign: 'left'
+                valign: "middle"
+                padding:(50, 50)
+                font_size: "20sp"
+
+            
+            Label:
+                text: "Height : 150 cm"
+                pos_hint:{"center_x":0.2,"center_y":0.65}
+                halign: 'left'
+                valign: "middle"
+                line_height: 0
+                padding:(50, 50)
+                font_size: "20sp"
+            
+            Label:
+                text: "Weight: 150 lb"
+                pos_hint:{"center_x":0.2,"center_y":0.5}
+                halign: 'left'
+                valign: "middle"
+                line_height: 0
+                padding:(50, 50)
+                font_size: "20sp"
+
+        MDBoxLayout:
+            padding: (10, 10)
+            id: box
+            pos_hint:{"center_x":0.5,"center_y":1}
+                
+            
+                   
+
+        MDBoxLayout:
+            MDBottomAppBar: 
+                
+                md_bg_color: 0, 0, 1, 1
+                
+                MDToolbar: 
+                    icon: "git"
+                    type: "bottom"
+                    mode: "center"
+                    on_action_button: app.callback2(self.icon)
+    
