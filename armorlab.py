@@ -4,30 +4,69 @@ from kivy.uix.floatlayout import FloatLayout
 from kivymd.uix.label import MDLabel
 from kivy.core.text import Label
 from kivy.garden.matplotlib.backend_kivyagg import FigureCanvasKivyAgg
-import matplotlib.pyplot as plt
-
- 
-x = [12, 13, 13, 45]
-y = [3, 4, 5,6,]
-
-plt.plot(x,y)
-plt.ylabel("Y Axis")
-plt.xlabel("X Axis")
-
-class Armorlab(FloatLayout):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
-        box = self.ids.box
-        box.add_widget(FigureCanvasKivyAgg(plt.gcf()))
+from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition
+from kivy.clock import Clock
+import plotly.graph_objects as go
+import plotly.offline as pyo
+import os
 
 
+
+def createMainRadarPlot(): 
+    categories = ['Flexibility', 'Agility', 'Strength']
+    categories = [*categories, categories[0]]
+
+    subject = [8.8, 7.4, 2.0]
+    average_person = [6.8, 7.5, 6.0]
+    subject = [*subject, subject[0]]
+    average_person = [*average_person, average_person[0]]
+
+    fig = go.Figure(
+        data=[
+            go.Scatterpolar(r=subject, theta=categories, fill='toself', name='Your Stats'),
+            go.Scatterpolar(r=average_person, theta=categories, fill='toself', name='Average Person')
+        ],
+        layout=go.Layout(
+            polar={'radialaxis': {'visible': True}},
+            showlegend=True
+        )
+    )
+
+    if not os.path.exists("graphs"):
+        os.mkdir("graphs")
+
+    fig.write_image("graphs/radarPlot.jpeg")
+
+class BaseScreen(Screen):
+    createMainRadarPlot()
+    def __init__(self, **kw):
+        super().__init__(**kw)
+        Clock.schedule_once(self.set_toolbar_title_halign)
+    def set_toolbar_title_halign(self, *args):
+        self.ids.toolbar.ids.label_title.halign = "center"
+
+class GitButtonScreen(Screen):
+    pass
+    
+class MenuToggledScreen(Screen):
+    def __init__(self, **kw):
+        super().__init__(**kw)
+        Clock.schedule_once(self.set_toolbar_title_halign)
+    def set_toolbar_title_halign(self, *args):
+        self.ids.toolbar.ids.label_title.halign = "center"
+
+screen_manager = ScreenManager(transition=NoTransition())
 
 class armorlab(MDApp):
     def build(self):
-        self.theme_cls.theme_style = "Dark"
-        self.theme_cls.primary_palette = "BlueGray"
-        Builder.load_file("armorlab.kv")
-        return Armorlab()
+        screen_manager.add_widget(BaseScreen(name="BaseScreen"))
+        screen_manager.add_widget(GitButtonScreen(name="GitButtonScreen"))
+        screen_manager.add_widget(MenuToggledScreen(name="MenuToggledScreen"))
+        return screen_manager
+    def menuClicked(self):
+        screen_manager.current = 'MenuToggledScreen'
+    def menuUnclicked(self):
+        screen_manager.current = 'BaseScreen'
 
-armorlab().run()
+if __name__ == '__main__':
+    armorlab().run()
