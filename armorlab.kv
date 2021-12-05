@@ -5,9 +5,9 @@
 			Rectangle:
 				pos: self.pos
 				size: self.size
-				source: 'images/PlaceHolder_Background_Image.jpeg'
+				source: 'images/Background.jpg'
         MDToolbar: 
-            title: "Armor Lab"
+            title: "ARMOR Lab Human Digital Twin"
 			id: toolbar
             left_action_items: [["menu", lambda x: app.menuClicked()]]
             right_action_items: [["dots-vertical", lambda x: app.callback1()]]
@@ -20,12 +20,16 @@
 			padding: [10,10,0,0]
 			MDLabel:
 				text: "Name: Prithviraj"
+				color: "white"
 			MDLabel:
 				text: "Affiliation: University of California San Diego"
+				color: "white"
 			MDLabel:
 				text: "Height: 150 cm"
+				color: "white"
 			MDLabel:
 				text: "Weight: 150 lbs"
+				color: "white"
 			
         MDBoxLayout:
             size_hint_y: None
@@ -72,9 +76,9 @@
             md_bg_color: app.theme_cls.accent_color
             spacing: 10
 		Button:
-			text: 'Place Holder 1'
+			text: 'Receive Data'
 		Button:
-			text: 'Place Holder 2'
+			text: 'Plot Raw Data'
 		Button:
 			text: 'Place Holder 3'
 		Button:

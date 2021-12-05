@@ -6,18 +6,19 @@ from kivy.core.text import Label
 from kivy.garden.matplotlib.backend_kivyagg import FigureCanvasKivyAgg
 from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition
 from kivy.clock import Clock
+from kivy.core.window import Window
 import plotly.graph_objects as go
 import plotly.offline as pyo
 import os
 
-
+Window.size = (500,740)
 
 def createMainRadarPlot(): 
-    categories = ['Flexibility', 'Agility', 'Strength']
+    categories = ['Strength', 'Stamina', 'Agility', 'Control']
     categories = [*categories, categories[0]]
 
-    subject = [8.8, 7.4, 2.0]
-    average_person = [6.8, 7.5, 6.0]
+    subject = [8.8, 7.4, 2.0, 4.0]
+    average_person = [6.8, 7.5, 6.0, 5.0]
     subject = [*subject, subject[0]]
     average_person = [*average_person, average_person[0]]
 
